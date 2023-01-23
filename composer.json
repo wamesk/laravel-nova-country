@@ -23,7 +23,9 @@
     ],
     "require": {
         "php": "^8.0|^8.1|^8.2",
-        "laravel/nova": "^4.0"
+        "laravel/nova": "^4.0",
+        "wamesk/laravel-nova-currency": "dev-master",
+        "wamesk/laravel-nova-language": "dev-master"
     },
     "autoload": {
         "psr-4": {
