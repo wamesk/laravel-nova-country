@@ -22,7 +22,6 @@
         }
     ],
     "require": {
-        "php": "^8.0|^8.1|^8.2",
         "laravel/nova": "^4.0",
         "wamesk/laravel-nova-currency": "dev-main",
         "wamesk/laravel-nova-language": "dev-main"
