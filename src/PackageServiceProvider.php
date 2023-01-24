@@ -35,7 +35,7 @@ class PackageServiceProvider extends ServiceProvider
             $this->publishes([__DIR__ . '/../app/Policies/CountryPolicy.php' => app_path('Policies/CountryPolicy.php')], ['policy', 'wame', 'country']);
 
             // Export migration
-            $this->publishes([__DIR__ . '/../database/migrations/2023_01_24_154805_create_countries_table.php' => database_path('migrations/2023_01_24_154805_create_countries_table.php')], ['migrations', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../database/migrations/2022_08_17_104805_create_countries_table.php' => database_path('migrations/2022_08_17_104805_create_countries_table.php')], ['migrations', 'wame', 'country']);
 
             // Export seeder
             $this->publishes([__DIR__ . '/../database/seeders/CountrySeeder.php' => database_path('seeders/CountrySeeder.php')], ['seeders', 'wame', 'country']);
