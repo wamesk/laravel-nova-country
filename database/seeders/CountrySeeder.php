@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 
 /**
- * php artisan db:seed --class=LanguageSeeder
+ * php artisan db:seed --class=CountrySeeder
  */
 class CountrySeeder extends Seeder
 {
@@ -20,8 +20,8 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        $languages = Language::all()->pluck('locale', 'id');
-        $currencies = Currency::all()->pluck('code', 'id');
+        $languages = Language::all()->pluck('id', 'locale');
+        $currencies = Currency::all()->pluck('id', 'code');
 
         $items = [
             ['language_id' => $languages['sk_SK'], 'currency_id' => $currencies['EUR'], 'code' => 'sk', 'iso' => 'svk', 'iso_numeric' => 203, 'title' => 'Slovensko', 'slug' => 'slovakia', 'tax' => 21],
