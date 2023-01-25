@@ -14,7 +14,7 @@ composer require wamesk/laravel-nova-country
 ```
 
 ```bash
-php artisan vendor:publish --provider="Wame\LaravelNovaCountry\PackageServiceProvider"
+php artisan vendor:publish
 ```
 
 ```bash
@@ -22,6 +22,10 @@ php artisan migrate
 ```
 
 ```bash
+php artisan db:seed --class=LanguageSeeder
+
+php artisan db:seed --class=CurrencySeeder
+
 php artisan db:seed --class=CountrySeeder
 ```
 
