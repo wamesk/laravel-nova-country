@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Wame\LaravelNovaCountry;
 
 use Illuminate\Support\ServiceProvider;
@@ -11,9 +13,8 @@ class PackageServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-
     }
 
     /**
@@ -21,40 +22,42 @@ class PackageServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             // Export model
             $model = app_path('Models/Country.php');
-            if (!file_exists($model)) $this->createModel($model);
+            if (!file_exists($model)) {
+                $this->createModel($model);
+            }
 
             // Export Nova resource
-            $this->publishes([__DIR__ . '/../app/Nova/Country.php' => app_path('Nova/Country.php')], ['nova', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../app/Nova' => app_path('Nova')], ['nova', 'wame', 'country']);
 
             // Export policy
-            $this->publishes([__DIR__ . '/../app/Policies/CountryPolicy.php' => app_path('Policies/CountryPolicy.php')], ['policy', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../app/Policies' => app_path('Policies')], ['policy', 'wame', 'country']);
 
             // Export migration
-            $this->publishes([__DIR__ . '/../database/migrations/2022_08_17_104805_create_countries_table.php' => database_path('migrations/2022_08_17_104805_create_countries_table.php')], ['migrations', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], ['migrations', 'wame', 'country']);
 
             // Export seeder
-            $this->publishes([__DIR__ . '/../database/seeders/CountrySeeder.php' => database_path('seeders/CountrySeeder.php')], ['seeders', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../database/seeders' => database_path('seeders')], ['seeders', 'wame', 'country']);
 
             // Export lang
-            $this->publishes([__DIR__ . '/../resources/lang/sk/country.php' => resource_path('lang/sk/country.php')], ['langs', 'wame', 'country']);
+            $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang')], ['langs', 'wame', 'country']);
         }
     }
 
 
-    private function createModel($model)
+    private function createModel($model): void
     {
-        $file = fopen($model, "w");
+        $file = fopen($model, 'w');
         $idType = config('wame-commands.id-type');
 
-        if ($idType === 'ulid') {
+        if ('ulid' === $idType) {
             $use = "use Illuminate\Database\Eloquent\Concerns\HasUlids;\n";
             $use2 = "    use HasUlids;\n";
-        } elseif ($idType === 'uuid') {
+        } elseif ('uuid' === $idType) {
             $use = "use Illuminate\Database\Eloquent\Concerns\HasUuids;\n";
             $use2 = "    use HasUuids;\n";
         } else {
@@ -80,5 +83,4 @@ class PackageServiceProvider extends ServiceProvider
         fwrite($file, implode('', $lines));
         fclose($file);
     }
-
 }

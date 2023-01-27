@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Database\Seeders;
 
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Language;
 use Illuminate\Database\Seeder;
-
 
 /**
  * php artisan db:seed --class=CountrySeeder
@@ -18,7 +19,7 @@ class CountrySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $languages = Language::all()->pluck('id', 'locale');
         $currencies = Currency::all()->pluck('id', 'code');
@@ -32,5 +33,4 @@ class CountrySeeder extends Seeder
             Country::updateOrCreate(['code' => $item['code']], $item);
         }
     }
-
 }
