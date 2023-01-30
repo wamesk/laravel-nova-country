@@ -89,8 +89,7 @@ class Country extends BaseResource
                         ->default(20)
                         ->displayUsing(fn () => $this->tax . ' %')
                         ->rules('required')
-                        ->showOnPreview()
-                        ->hideFromIndex(),
+                        ->showOnPreview(),
 
                     BelongsTo::make(__('country.field.currency'), 'currency', Currency::class)
                         ->help(__('country.field.currency.help'))
