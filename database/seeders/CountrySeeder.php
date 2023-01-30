@@ -25,8 +25,8 @@ class CountrySeeder extends Seeder
         $currencies = Currency::all()->pluck('id', 'code');
 
         $items = [
-            ['language_id' => $languages['sk_SK'], 'currency_id' => $currencies['EUR'], 'code' => 'sk', 'iso' => 'svk', 'iso_numeric' => 203, 'title' => 'Slovensko', 'slug' => 'slovakia', 'tax' => 21],
-            ['language_id' => $languages['cs_CZ'], 'currency_id' => $currencies['CZK'], 'code' => 'cz', 'iso' => 'cze', 'iso_numeric' => 703, 'title' => 'Česko', 'slug' => 'czech-republic', 'tax' => 20],
+            ['language_id' => $languages['sk_SK'], 'currency_id' => $currencies['EUR'], 'code' => 'sk', 'iso' => 'svk', 'iso_numeric' => 203, 'title' => 'Slovensko', 'slug' => 'slovakia', 'tax' => 20],
+            ['language_id' => $languages['cs_CZ'], 'currency_id' => $currencies['CZK'], 'code' => 'cz', 'iso' => 'cze', 'iso_numeric' => 703, 'title' => 'Česko', 'slug' => 'czech-republic', 'tax' => 21],
         ];
 
         foreach ($items as $item) {
