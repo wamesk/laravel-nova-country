@@ -23,8 +23,8 @@
     ],
     "require": {
         "laravel/nova": "^4.0",
-        "wamesk/laravel-nova-currency": "dev-main",
-        "wamesk/laravel-nova-language": "dev-main"
+        "wamesk/laravel-nova-currency": "^1.0",
+        "wamesk/laravel-nova-language": "^2.0"
     },
     "autoload": {
         "psr-4": {
