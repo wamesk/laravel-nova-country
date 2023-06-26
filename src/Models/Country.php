@@ -30,16 +30,16 @@ class Country extends Model
     /**
      * @return BelongsTo
      */
-    public function currency(): BelongsTo
+    public function language(): BelongsTo
     {
-        return $this->belongsTo(Currency::class, 'currency_id');
+        return $this->belongsTo(Language::class, 'language_code', 'locale');
     }
 
     /**
      * @return BelongsTo
      */
-    public function language(): BelongsTo
+    public function currency(): BelongsTo
     {
-        return $this->belongsTo(Language::class, 'language_id');
+        return $this->belongsTo(Currency::class, 'currency_code', 'code');
     }
 }
