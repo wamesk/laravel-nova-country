@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Traits;
+namespace Wame\LaravelNovaCountry\Models;
 
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
