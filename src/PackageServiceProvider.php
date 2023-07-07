@@ -34,6 +34,9 @@ class PackageServiceProvider extends ServiceProvider
             // Export Nova resource
             $this->publishes([__DIR__ . '/../app/Nova' => app_path('Nova')], ['nova', 'wame', 'country']);
 
+            // Export observer
+            $this->publishes([__DIR__ . '/../app/Observers' => app_path('Observers')], ['observer', 'wame', 'country']);
+
             // Export policy
             $this->publishes([__DIR__ . '/../app/Policies' => app_path('Policies')], ['policy', 'wame', 'country']);
 

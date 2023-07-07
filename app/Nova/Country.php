@@ -4,18 +4,20 @@ declare(strict_types = 1);
 
 namespace App\Nova;
 
-use Eminiarts\Tabs\Tab;
-use Eminiarts\Tabs\Tabs;
+use ShuvroRoy\NovaTabs\Tab;
+use ShuvroRoy\NovaTabs\Tabs;
+use ShuvroRoy\NovaTabs\Traits\HasTabs;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Country extends BaseResource
 {
+    use HasTabs;
+
     /**
      * The model the resource corresponds to.
      *
@@ -36,7 +38,7 @@ class Country extends BaseResource
      * @var array
      */
     public static $search = [
-        'id', 'code', 'iso', 'title',
+        'id', 'code', 'title',
     ];
 
     /**
@@ -56,38 +58,15 @@ class Country extends BaseResource
                         ->help(__('country.field.title.help'))
                         ->sortable()
                         ->filterable()
+                        ->required()
                         ->rules('required')
                         ->showOnPreview(),
-
-                    Slug::make(__('country.field.slug'), 'slug')
-                        ->from('title')
-                        ->help(__('country.field.slug.help'))
-                        ->rules('required')
-                        ->onlyOnForms(),
 
                     Text::make(__('country.field.code'), 'code')
                         ->help(__('country.field.code.help'))
                         ->sortable()
                         ->filterable()
-                        ->rules('required')
-                        ->showOnPreview(),
-
-                    Text::make(__('country.field.iso'), 'iso')
-                        ->help(__('country.field.iso.help'))
-                        ->showOnPreview()
-                        ->hideFromIndex(),
-
-                    Text::make(__('country.field.iso_numeric'), 'iso_numeric')
-                        ->help(__('country.field.iso_numeric.help'))
-                        ->showOnPreview()
-                        ->hideFromIndex(),
-
-                    Number::make(__('country.field.tax'), 'tax')
-                        ->help(__('country.field.tax.help'))
-                        ->min(0)
-                        ->max(100)
-                        ->default(20)
-                        ->displayUsing(fn () => $this->tax . ' %')
+                        ->required()
                         ->rules('required')
                         ->showOnPreview(),
 
@@ -96,6 +75,7 @@ class Country extends BaseResource
                         ->withSubtitles()
                         ->sortable()
                         ->filterable()
+                        ->required()
                         ->rules('required')
                         ->showOnPreview(),
 
@@ -105,6 +85,7 @@ class Country extends BaseResource
                         ->showCreateRelationButton()
                         ->sortable()
                         ->filterable()
+                        ->required()
                         ->rules('required')
                         ->showOnPreview(),
 
@@ -115,6 +96,8 @@ class Country extends BaseResource
                         ->filterable()
                         ->showOnPreview(),
                 ]),
+
+                HasMany::make(__('vat_rate.plural'), 'vatRates', VatRate::class),
             ])->withToolbar(),
         ];
     }
