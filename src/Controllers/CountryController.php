@@ -6,20 +6,31 @@ namespace Wame\LaravelNovaCountry\Controllers;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Country;
+use Illuminate\Support\Collection;
 
 class CountryController extends BaseController
 {
-    public static function getActiveCountryCodes()
+    /**
+     * @return Collection
+     */
+    public static function getActiveCountryCodes(): Collection
     {
-        return Country::where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('code');
+        return Country::query()->where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('code');
     }
 
-    public static function getPairs()
+    /**
+     * @return Collection
+     */
+    public static function getPairs(): Collection
     {
-        return Country::where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('title', 'id');
+        return Country::query()->where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('title', 'id');
     }
 
-    public static function updateFromData($countryCode)
+    /**
+     * @param Country $country
+     * @return Country
+     */
+    public static function updateFromData(Country $country): Country
     {
         $countryCode = $country->code;
 
@@ -36,7 +47,11 @@ class CountryController extends BaseController
         return $country;
     }
 
-    public static function getWorldRegion($countryCode)
+    /**
+     * @param string $countryCode
+     * @return string|null
+     */
+    public static function getWorldRegion(string $countryCode): ?string
     {
         $data = country($countryCode);
         if ($data) return null;
@@ -52,4 +67,11 @@ class CountryController extends BaseController
         return $data->getWorldRegion();
     }
 
+    /**
+     * @return Country
+     */
+    public static function model(): Country
+    {
+        return new Country;
+    }
 }
