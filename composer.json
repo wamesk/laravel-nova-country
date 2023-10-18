@@ -24,8 +24,8 @@
     "require": {
         "laravel/nova": "^4.0",
         "rinvex/countries": "^9.0",
-        "wamesk/laravel-nova-currency": "^1.0",
-        "wamesk/laravel-nova-language": "^2.0",
+        "wamesk/laravel-nova-currency": "^1.1",
+        "wamesk/laravel-nova-language": "^2.1",
         "wamesk/laravel-nova-vat-rate": "dev-main"
     },
     "autoload": {
