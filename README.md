@@ -39,7 +39,18 @@ protected $policies = [
 ## Usage
 
 ```php
-BelongsTo::make(__('customer.field.country'), 'country', Country::class)
+Select::make(__('customer.field.country'), 'country_code')
     ->help(__('customer.field.country.help'))
-    ->withoutTrashed()
+    ->options(fn () => CountryController::getListForSelect())
+    ->searchable()
+    ->required()
+    ->rules('required')
+    ->onlyOnForms(),
+                        
+BelongsTo::make(__('customer.field.country'), 'country', Country::class)
+    ->displayUsing(fn () => CountryController::displayUsing($request, $this))
+    ->sortable()
+    ->filterable()
+    ->showOnPreview()
+    ->exceptOnForms(),
 ```
