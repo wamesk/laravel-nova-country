@@ -25,8 +25,8 @@ return new class () extends Migration {
             $table->string('title', 40);
             $table->unsignedTinyInteger('sort')->default(0)->index();
             $table->boolean('status')->default(true)->index();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->datetimes();
+            $table->softDeletesDatetime();
 
             $table->index(['status', 'code']);
         });
