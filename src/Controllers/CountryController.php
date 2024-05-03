@@ -4,28 +4,21 @@ declare(strict_types = 1);
 
 namespace Wame\LaravelNovaCountry\Controllers;
 
-use App\Http\Controllers\BaseController;
-use App\Models\Country;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
+use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
+use Wame\LaravelNovaCountry\Models\Country;
 
-class CountryController extends BaseController
+class CountryController extends Controller
 {
-    /**
-     * @return Country
-     */
-    public static function model(): Country
-    {
-        return new Country;
-    }
-
     /**
      * @return Collection
      */
     public static function getActiveCodes(): Collection
     {
-        return Country::query()->where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('code');
+        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('code');
     }
 
     /**
@@ -33,10 +26,10 @@ class CountryController extends BaseController
      */
     public static function getPairs(): Collection
     {
-        return Country::query()->where('deleted_at', null)->where('status', Country::STATUS_ENABLED)->get()->pluck('title', 'code');
+        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('title', 'code');
     }
 
-    public static function getListForSelect()
+    public static function getListForSelect(): array
     {
         $list = self::getActiveCodes();
 
@@ -59,7 +52,7 @@ class CountryController extends BaseController
      */
     public static function updateFromData(Country $country): Country
     {
-        $countryCode = $country->code;
+        $countryCode = $country->id;
 
         if ($countryCode) {
             $data = country($countryCode);

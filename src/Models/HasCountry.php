@@ -2,7 +2,6 @@
 
 namespace Wame\LaravelNovaCountry\Models;
 
-use App\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 trait HasCountry
@@ -12,6 +11,6 @@ trait HasCountry
      */
     public function country(): BelongsTo
     {
-        return $this->belongsTo(Country::class, 'country_code', 'code');
+        return $this->belongsTo(Country::class);
     }
 }

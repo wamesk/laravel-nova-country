@@ -1,6 +1,7 @@
 {
     "name": "wamesk/laravel-nova-country",
     "description": "Laravel Nova 4 Country field.",
+    "version": "2.0.0",
     "keywords": [
         "laravel",
         "nova",
@@ -24,19 +25,20 @@
     "require": {
         "laravel/nova": "^4.0",
         "rinvex/countries": "^9.0",
-        "wamesk/laravel-nova-currency": "^1.1",
-        "wamesk/laravel-nova-language": "^2.1",
-        "wamesk/laravel-nova-vat-rate": "dev-main"
+        "wamesk/laravel-nova-currency": "^2.0",
+        "wamesk/laravel-nova-language": "^3.0",
+        "wamesk/laravel-nova-vat-rate": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "Wame\\LaravelNovaCountry\\": "src/"
+            "Wame\\LaravelNovaCountry\\": "src/",
+            "Wame\\LaravelNovaCountry\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Wame\\LaravelNovaCountry\\PackageServiceProvider"
+                "Wame\\LaravelNovaCountry\\Providers\\PackageServiceProvider"
             ]
         }
     },

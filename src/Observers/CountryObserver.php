@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Observers;
+namespace Wame\LaravelNovaCountry\Observers;
 
 use Wame\LaravelNovaCountry\Controllers\CountryController;
-use App\Http\Controllers\v1\VatRateController;
-use App\Models\Country;
+use Wame\LaravelNovaCountry\Models\Country;
+use Wame\LaravelNovaVatRate\Controllers\VatRateController;
 
 class CountryObserver
 {
@@ -14,7 +14,7 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function creating(Country $country)
+    public function creating(Country $country): void
     {
         CountryController::updateFromData($country);
     }
@@ -25,9 +25,9 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function created(Country $country)
+    public function created(Country $country): void
     {
-        VatRateController::addVatRatesToCountry($country->code);
+        VatRateController::addVatRatesToCountry($country->id);
     }
 
     /**
@@ -36,7 +36,7 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function updating(Country $country)
+    public function updating(Country $country): void
     {
         CountryController::updateFromData($country);
     }
@@ -47,9 +47,9 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function updated(Country $country)
+    public function updated(Country $country): void
     {
-        VatRateController::addVatRatesToCountry($country->code);
+        VatRateController::addVatRatesToCountry($country->id);
     }
 
     /**
@@ -58,7 +58,7 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function deleted(Country $country)
+    public function deleted(Country $country): void
     {
     }
 
@@ -68,7 +68,7 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function restored(Country $country)
+    public function restored(Country $country): void
     {
     }
 
@@ -78,7 +78,7 @@ class CountryObserver
      * @param Country $country
      * @return void
      */
-    public function forceDeleted(Country $country)
+    public function forceDeleted(Country $country): void
     {
     }
 }

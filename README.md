@@ -30,9 +30,10 @@ php artisan db:seed --class=CountrySeeder
 ```
 
 Add Policy to `./app/Providers/AuthServiceProvider.php`
+
 ```php
 protected $policies = [
-    'App\Models\Country' => 'App\Policies\CountryPolicy',
+    'App\Models\Country' => 'Policies\CountryPolicy',
 ];
 ```
 

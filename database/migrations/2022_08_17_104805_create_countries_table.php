@@ -16,19 +16,18 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('countries', function (Blueprint $table): void {
-            $table->ulid('id')->primary();
-            $table->char('language_code', 5)->nullable()->constrained('languages', 'locale')->cascadeOnUpdate()->nullOnDelete();
-            $table->char('currency_code', 3)->nullable()->constrained('currencies', 'code')->cascadeOnUpdate()->nullOnDelete();
+            $table->char('id', 2)->primary();
+            $table->char('language_id', 5)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->char('currency_id', 3)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->char('continent', 2)->nullable();
             $table->string('world_region', 5)->nullable();
-            $table->char('code', 2)->unique();
             $table->string('title', 40);
             $table->unsignedTinyInteger('sort')->default(0)->index();
             $table->boolean('status')->default(true)->index();
             $table->datetimes();
             $table->softDeletesDatetime();
 
-            $table->index(['status', 'code']);
+            $table->index(['status', 'id']);
         });
     }
 
