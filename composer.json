@@ -27,7 +27,7 @@
         "rinvex/countries": "^9.0",
         "wamesk/laravel-nova-currency": "^2.0",
         "wamesk/laravel-nova-language": "^3.0",
-        "wamesk/laravel-nova-vat-rate": "^1.0"
+        "wamesk/laravel-nova-vat-rate": "^2.0"
     },
     "autoload": {
         "psr-4": {
