@@ -14,10 +14,6 @@ composer require wamesk/laravel-nova-country
 ```
 
 ```bash
-php artisan vendor:publish
-```
-
-```bash
 php artisan migrate
 ```
 
