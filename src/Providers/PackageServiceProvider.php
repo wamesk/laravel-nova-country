@@ -22,6 +22,8 @@ class PackageServiceProvider extends ServiceProvider
         Nova::resources([
             Country::class,
         ]);
+
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'laravel-nova-country');
     }
 
     /**
