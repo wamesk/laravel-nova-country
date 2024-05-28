@@ -60,7 +60,7 @@ class CountryController extends Controller
                 $country->continent = array_key_first($data->getGeodata()['continent']) ?? null;
                 $country->world_region = self::getWorldRegion($countryCode);
                 $country->title = $data->getName();
-                $country->save();
+                $country->saveQuietly();
             }
         }
 
