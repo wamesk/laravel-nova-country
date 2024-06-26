@@ -18,7 +18,7 @@ class CountryController extends Controller
      */
     public static function getActiveCodes(): Collection
     {
-        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('code');
+        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('id');
     }
 
     /**
@@ -26,7 +26,7 @@ class CountryController extends Controller
      */
     public static function getPairs(): Collection
     {
-        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('title', 'code');
+        return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('title', 'id');
     }
 
     public static function getListForSelect(): array
@@ -97,12 +97,12 @@ class CountryController extends Controller
      */
     public static function displayUsing($request, $model): ?string
     {
-        if (!$model->country_code) {
+        if (!$model->country_id) {
             return null;
         } elseif ($request instanceof ResourceIndexRequest) {
-            return $model->country_code;
+            return $model->country_id;
         } else {
-            return country($model->country_code)->getName() . ' (' . $model->country_code . ')';
+            return country($model->country_id)->getName() . ' (' . $model->country_id . ')';
         }
     }
 
