@@ -6,67 +6,68 @@ namespace Wame\LaravelNovaCountry\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class CountryPolicy
 {
     use HandlesAuthorization;
 
 
-    public function viewAny(User $user): bool
+    public function viewAny(User|Authenticatable $user): bool
     {
         return true;
     }
 
 
-    public function view(User $user, $model): bool
+    public function view(User|Authenticatable $user, $model): bool
     {
         return true;
     }
 
 
-    public function create(User $user): bool
+    public function create(User|Authenticatable $user): bool
     {
         return true;
     }
 
 
-    public function update(User $user, $model): bool
+    public function update(User|Authenticatable $user, $model): bool
     {
         return true;
     }
 
 
-    public function replicate(User $user, $model): bool
+    public function replicate(User|Authenticatable $user, $model): bool
     {
         return false;
     }
 
 
-    public function delete(User $user, $model): bool
+    public function delete(User|Authenticatable $user, $model): bool
     {
         return true;
     }
 
 
-    public function forceDelete(User $user, $model): bool
+    public function forceDelete(User|Authenticatable $user, $model): bool
     {
         return false;
     }
 
 
-    public function restore(User $user, $model): bool
+    public function restore(User|Authenticatable $user, $model): bool
     {
         return false;
     }
 
 
-    public function runAction(User $user): bool
+    public function runAction(User|Authenticatable $user): bool
     {
         return true;
     }
 
 
-    public function runDestructiveAction(User $user): bool
+    public function runDestructiveAction(User|Authenticatable $user): bool
     {
         return true;
     }
