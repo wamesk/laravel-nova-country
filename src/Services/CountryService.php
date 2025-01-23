@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Wame\LaravelNovaCountry\Controllers;
+namespace Wame\LaravelNovaCountry\Services;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
@@ -11,25 +11,19 @@ use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
 use Wame\LaravelNovaCountry\Models\Country;
 
-class CountryController extends Controller
+class CountryService extends Controller
 {
-    /**
-     * @return Collection
-     */
-    public static function getActiveCodes(): Collection
+    public function getActiveCodes(): Collection
     {
         return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('id');
     }
 
-    /**
-     * @return Collection
-     */
-    public static function getPairs(): Collection
+    public function getPairs(): Collection
     {
         return Country::whereStatus(CountryStatusEnum::ENABLED->value)->get()->pluck('title', 'id');
     }
 
-    public static function getListForSelect(): array
+    public function getListForSelect(): array
     {
         $list = self::getActiveCodes();
 
@@ -46,11 +40,7 @@ class CountryController extends Controller
         return $return;
     }
 
-    /**
-     * @param Country $country
-     * @return Country
-     */
-    public static function updateFromData(Country $country): Country
+    public function updateFromData(Country $country): Country
     {
         $countryCode = $country->id;
 
@@ -58,7 +48,6 @@ class CountryController extends Controller
             $data = country($countryCode);
             if ($data) {
                 $country->continent = array_key_first($data->getGeodata()['continent']) ?? null;
-                $country->world_region = self::getWorldRegion($countryCode);
                 $country->title = $data->getName();
                 $country->saveQuietly();
             }
@@ -67,11 +56,7 @@ class CountryController extends Controller
         return $country;
     }
 
-    /**
-     * @param string $countryCode
-     * @return string|null
-     */
-    public static function getWorldRegion(string $countryCode): ?string
+    public function getWorldRegion(string $countryCode): ?string
     {
         $data = country($countryCode);
         if ($data) return null;
@@ -87,15 +72,7 @@ class CountryController extends Controller
         return $data->getWorldRegion();
     }
 
-    /**
-     * Helper for display using
-     *
-     * @param NovaRequest $request
-     * @param Country $model
-     *
-     * @return string|null
-     */
-    public static function displayUsing($request, $model): ?string
+    public function displayUsing($request, $model): ?string
     {
         if (!$model->country_id) {
             return null;

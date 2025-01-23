@@ -6,14 +6,14 @@ namespace Wame\LaravelNovaCountry\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Support\Carbon;
-use Wame\LaravelNovaCurrency\Models\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Wame\LaravelNovaLanguage\Models\Language;
+use Illuminate\Support\Carbon;
+use Wame\LaravelNovaCurrency\Models\HasCurrency;
+use Wame\LaravelNovaLanguage\Models\HasLanguage;
 use Wame\LaravelNovaVatRate\Models\VatRate;
 
 /**
@@ -56,7 +56,9 @@ use Wame\LaravelNovaVatRate\Models\VatRate;
  */
 class Country extends Model
 {
+    use HasCurrency;
     use HasFactory;
+    use HasLanguage;
     use SoftDeletes;
     use HasUlids;
 
@@ -73,25 +75,15 @@ class Country extends Model
         'title',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function language(): BelongsTo
+    protected $appends = [
+        'country_data',
+    ];
+
+    public function getCountryDataAttribute(): ?\Rinvex\Country\Country
     {
-        return $this->belongsTo(Language::class);
+        return $this->id ? country($this->id) : null;
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    /**
-     * @return HasMany
-     */
     public function vatRates(): HasMany
     {
         return $this->hasMany(VatRate::class);

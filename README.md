@@ -1,10 +1,10 @@
-# Laravel Nova 4 Country
+# Laravel Nova 5 Country
 
 
 
 ## Requirements
 
-- `laravel/nova: ^4.0`
+- `laravel/nova: ^5.0`
 
 
 ## Installation
@@ -25,27 +25,19 @@ php artisan db:seed --class=CurrencySeeder
 php artisan db:seed --class=CountrySeeder
 ```
 
-Add Policy to `./app/Providers/AuthServiceProvider.php`
-
-```php
-protected $policies = [
-    'App\Models\Country' => 'Policies\CountryPolicy',
-];
-```
-
 ## Usage
 
 ```php
-Select::make(__('customer.field.country'), 'country_code')
+Select::make(__('customer.field.country'), 'country_id')
     ->help(__('customer.field.country.help'))
-    ->options(fn () => CountryController::getListForSelect())
+    ->options(fn () => resolve(CountryService::class)->getListForSelect())
     ->searchable()
     ->required()
     ->rules('required')
     ->onlyOnForms(),
                         
 BelongsTo::make(__('customer.field.country'), 'country', Country::class)
-    ->displayUsing(fn () => CountryController::displayUsing($request, $this))
+    ->displayUsing(fn () => resolve(CountryService::class)->displayUsing($request, $this))
     ->sortable()
     ->filterable()
     ->showOnPreview()
