@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
 use Wame\LaravelNovaCurrency\Models\HasCurrency;
 use Wame\LaravelNovaLanguage\Models\HasLanguage;
 use Wame\LaravelNovaVatRate\Models\VatRate;
@@ -65,6 +66,7 @@ class Country extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
+        'status' => CountryStatusEnum::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
