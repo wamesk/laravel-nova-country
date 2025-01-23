@@ -63,13 +63,8 @@ class Country extends Model
     use SoftDeletes;
     use HasUlids;
 
-    protected $guarded = ['id'];
-
-    protected $casts = [
-        'status' => CountryStatusEnum::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
+    protected $appends = [
+        'country_data',
     ];
 
     protected $fillable = [
@@ -77,9 +72,17 @@ class Country extends Model
         'title',
     ];
 
-    protected $appends = [
-        'country_data',
-    ];
+    protected $guarded = ['id'];
+
+    protected function casts(): array
+    {
+        return [
+            'status' => CountryStatusEnum::class,
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
+        ];
+    }
 
     public function getCountryDataAttribute(): ?\Rinvex\Country\Country
     {
