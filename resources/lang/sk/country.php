@@ -17,6 +17,6 @@ return [
     'field.language.help' => 'Vyberte hlavný jazyk ktorý sa používa v tejto krajine.',
     'field.currency' => 'Mena',
     'field.currency.help' => 'Vyberte hlavnú menu ktorá sa používa v tejto krajine.',
-    'field.status' => 'Aktívny',
+    'field.status' => 'Aktívna',
     'field.status.help' => 'Zvoľte či je krajina aktívna a bude ponúkaná v systéme.',
 ];
