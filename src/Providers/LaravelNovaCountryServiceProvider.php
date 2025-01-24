@@ -10,7 +10,7 @@ use Wame\LaravelNovaCountry\Models\Country as CountryModel;
 use Wame\LaravelNovaCountry\Nova\Country;
 use Wame\LaravelNovaCountry\Observers\CountryObserver;
 
-class PackageServiceProvider extends ServiceProvider
+class LaravelNovaCountryServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

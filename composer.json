@@ -1,11 +1,11 @@
 {
     "name": "wamesk/laravel-nova-country",
-    "description": "Laravel Nova 4 Country field.",
-    "version": "2.0.4",
+    "description": "Laravel Nova 5 Country field.",
+    "version": "5.0.0",
     "keywords": [
         "laravel",
         "nova",
-        "nova4",
+        "nova5",
         "country",
         "field"
     ],
@@ -16,18 +16,12 @@
             "homepage": "https://wame.sk"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
     "require": {
-        "laravel/nova": "^4.0",
+        "laravel/nova": "^5.0",
         "rinvex/countries": "^9.0",
-        "wamesk/laravel-nova-currency": "^2.0",
-        "wamesk/laravel-nova-language": "^3.0",
-        "wamesk/laravel-nova-vat-rate": "^2.0"
+        "wamesk/laravel-nova-currency": "^5.0",
+        "wamesk/laravel-nova-language": "^5.0",
+        "wamesk/laravel-nova-vat-rate": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Wame\\LaravelNovaCountry\\Providers\\PackageServiceProvider"
+                "Wame\\LaravelNovaCountry\\Providers\\LaravelNovaCountryServiceProvider"
             ]
         }
     },

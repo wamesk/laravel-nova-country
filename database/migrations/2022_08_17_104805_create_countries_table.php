@@ -20,7 +20,6 @@ return new class () extends Migration {
             $table->char('language_id', 5)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->char('currency_id', 3)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->char('continent', 2)->nullable();
-            $table->string('world_region', 5)->nullable();
             $table->string('title', 40);
             $table->unsignedTinyInteger('sort')->default(0)->index();
             $table->boolean('status')->default(true)->index();

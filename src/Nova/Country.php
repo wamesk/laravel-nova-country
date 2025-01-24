@@ -10,17 +10,13 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use ShuvroRoy\NovaTabs\Tab;
-use ShuvroRoy\NovaTabs\Tabs;
-use ShuvroRoy\NovaTabs\Traits\HasTabs;
+use Laravel\Nova\Tabs\Tab;
 use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
 use Wame\LaravelNovaCurrency\Nova\Currency;
 use Wame\LaravelNovaLanguage\Nova\Language;
 
 class Country extends Resource
 {
-    use HasTabs;
-
     /**
      * The model the resource corresponds to.
      *
@@ -53,7 +49,7 @@ class Country extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            Tabs::make(__('laravel-nova-country::country.detail', ['title' => $this->title ?: '']), [
+            Tab::group(null, [
                 Tab::make(__('laravel-nova-country::country.singular'), [
                     ID::make()
                         ->sortable()
