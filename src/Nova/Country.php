@@ -7,6 +7,7 @@ namespace Wame\LaravelNovaCountry\Nova;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -14,6 +15,7 @@ use Laravel\Nova\Tabs\Tab;
 use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
 use Wame\LaravelNovaCurrency\Nova\Currency;
 use Wame\LaravelNovaLanguage\Nova\Language;
+use Wame\LaravelNovaVatRate\Nova\VatRate;
 
 class Country extends Resource
 {
@@ -93,7 +95,7 @@ class Country extends Resource
                         ->showOnPreview(),
                 ]),
 
-                //HasMany::make(__('laravel-nova-country::vat_rate.plural'), 'vatRates', VatRate::class),
+                HasMany::make(__('laravel-nova-vat-rate::vat_rate.plural'), 'vatRates', VatRate::class),
             ])->withToolbar(),
         ];
     }
