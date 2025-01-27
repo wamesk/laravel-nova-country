@@ -49,7 +49,6 @@ class CountryService extends Controller
             if ($data) {
                 $country->continent = array_key_first($data->getGeodata()['continent']) ?? null;
                 $country->title = $data->getName();
-                $country->saveQuietly();
             }
         }
 

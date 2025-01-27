@@ -1,5 +1,4 @@
-# Laravel Nova 5 Country
-
+# Laravel Nova Country
 
 
 ## Requirements

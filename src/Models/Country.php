@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Wame\LaravelNovaCountry\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Wame\LaravelNovaCountry\Enums\CountryStatusEnum;
+use Wame\LaravelNovaCountry\Observers\CountryObserver;
 use Wame\LaravelNovaCurrency\Models\HasCurrency;
 use Wame\LaravelNovaLanguage\Models\HasLanguage;
 use Wame\LaravelNovaVatRate\Models\VatRate;
@@ -55,6 +57,7 @@ use Wame\LaravelNovaVatRate\Models\VatRate;
  * @method static \Wame\LaravelNovaCountry\Database\Factories\CountryFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
+#[ObservedBy(CountryObserver::class)]
 class Country extends Model
 {
     use HasCurrency;
