@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Wame\LaravelNovaCountry\Nova;
 
 use App\Nova\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
@@ -26,21 +27,32 @@ class Country extends Resource
      */
     public static string $model = \Wame\LaravelNovaCountry\Models\Country::class;
 
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
-    public static $title = 'title';
+    public function title(): string
+    {
+        return $this->title;
+    }
 
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
-    public static $search = [
-        'id', 'title',
-    ];
+    public static function searchableColumns(): array
+    {
+        return [
+            'id',
+            'title',
+        ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query): Builder
+    {
+        if ($request->viaRelationship) {
+            return self::relatableQuery($request, $query);
+        }
+        if (empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+
+            return $query->orderByDesc('status')->orderBy('id');
+        }
+
+        return $query;
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -57,7 +69,8 @@ class Country extends Resource
                         ->sortable()
                         ->rules('required')
                         ->readonly()
-                        ->showOnPreview(),
+                        ->showOnPreview()
+                        ->showWhenPeeking(),
 
                     Text::make(__('laravel-nova-country::country.field.title'), 'title')
                         ->help(__('laravel-nova-country::country.field.title.help'))
@@ -65,7 +78,8 @@ class Country extends Resource
                         ->filterable()
                         ->required()
                         ->rules('required')
-                        ->showOnPreview(),
+                        ->showOnPreview()
+                        ->showWhenPeeking(),
 
                     BelongsTo::make(__('laravel-nova-country::country.field.currency'), 'currency', Currency::class)
                         ->help(__('laravel-nova-country::country.field.currency.help'))
@@ -74,7 +88,8 @@ class Country extends Resource
                         ->filterable()
                         ->required()
                         ->rules('required')
-                        ->showOnPreview(),
+                        ->showOnPreview()
+                        ->showWhenPeeking(),
 
                     BelongsTo::make(__('laravel-nova-country::country.field.language'), 'language', Language::class)
                         ->help(__('laravel-nova-country::country.field.language.help'))
@@ -85,14 +100,16 @@ class Country extends Resource
                         ->required()
                         ->withoutTrashed()
                         ->rules('required')
-                        ->showOnPreview(),
+                        ->showOnPreview()
+                        ->showWhenPeeking(),
 
                     Boolean::make(__('laravel-nova-country::country.field.status'), 'status')
                         ->help(__('laravel-nova-country::country.field.status.help'))
                         ->default(CountryStatusEnum::ENABLED->value)
                         ->sortable()
                         ->filterable()
-                        ->showOnPreview(),
+                        ->showOnPreview()
+                        ->showWhenPeeking(),
                 ]),
 
                 HasMany::make(__('laravel-nova-vat-rate::vat_rate.plural'), 'vatRates', VatRate::class),
