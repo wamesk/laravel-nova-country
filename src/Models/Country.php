@@ -92,6 +92,21 @@ class Country extends Model
         return $this->id ? country($this->id) : null;
     }
 
+    public function getTitleAttribute(?string $value): string
+    {
+        $locale = app()->getLocale();
+
+        if ($locale !== 'en') {
+            $translated = __('laravel-nova-country::countries.' . $this->id);
+
+            if ($translated !== 'laravel-nova-country::countries.' . $this->id) {
+                return $translated;
+            }
+        }
+
+        return $value ?? $this->id;
+    }
+
     public function vatRates(): HasMany
     {
         return $this->hasMany(VatRate::class);
